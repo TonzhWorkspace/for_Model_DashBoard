@@ -1,0 +1,7 @@
+beaker
+sanic
+requests
+kafka-python
+influxdb
+Geohash
+geoip2
