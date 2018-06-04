@@ -44,7 +44,10 @@ def one_consumer():
                 sticker_id = log_json['extra']['sticker_id']
             except:
                 sticker_id = log_json['extra']['item_id']
-            tag = log_json['extra']['tag']
+            try:
+                tag = log_json['extra']['tag']
+            except:
+                tag = log_json['extra']['tags']
             genhash_result = ip_to_genhash(ip)
             json_body = [{
                 "measurement": "country",
