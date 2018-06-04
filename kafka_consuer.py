@@ -17,16 +17,10 @@ def ip_to_genhash(ip):
     with geoip2.database.Reader(PATH + '/GeoIP2-City.mmdb') as reader:
         print(ip)
         response = reader.city(ip)
-        # country = response.country.iso_code
-        # specific = response.subdivisions.most_specific.name
         latitude = response.location.latitude
         longitude = response.location.longitude
-        # city_name = response.city.name
-        # print(country)
-        # print(specific)
-        # print(city_name)
         result = geohash.encode(latitude, longitude)
-        # print(result)
+        print(result)
     return result
 
 
