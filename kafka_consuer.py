@@ -36,29 +36,32 @@ def one_consumer():
         log = log.replace('"{', '{').replace('}"', '}')
         print(log)
         log_json = json.loads(log)
-        iid = log_json['iid']
-        kb_lang = log_json['extra']['kb_lang']
-        lang = log_json['extra']['lang']
-        sticker_id = log_json['extra']['sticker_id']
-        tag = log_json['extra']['tag']
-        if iid == 'send':
-            genhash_result = ip_to_genhash(ip)
-            json_body = [{
-                "measurement": "country",
-                'tags': {'tag_kb_lang': kb_lang,
-                         'tag_lang': lang,
-                         'tag_sticker_id': sticker_id,
-                         'tag_tag': tag,
-                         'geohash': genhash_result},
-                "fields": {
-                    'tag': tag,
-                    'sticker_id': sticker_id,
-                    'lang': lang,
-                    'kb_lang': kb_lang
-                },
-            }]
-            client.create_database('popup_geohash')
-            client.write_points(json_body)
+        try:
+            iid = log_json['iid']
+            kb_lang = log_json['extra']['kb_lang']
+            lang = log_json['extra']['lang']
+            sticker_id = log_json['extra']['sticker_id']
+            tag = log_json['extra']['tag']
+            if iid == 'send':
+                genhash_result = ip_to_genhash(ip)
+                json_body = [{
+                    "measurement": "country",
+                    'tags': {'tag_kb_lang': kb_lang,
+                             'tag_lang': lang,
+                             'tag_sticker_id': sticker_id,
+                             'tag_tag': tag,
+                             'geohash': genhash_result},
+                    "fields": {
+                        'tag': tag,
+                        'sticker_id': sticker_id,
+                        'lang': lang,
+                        'kb_lang': kb_lang
+                    },
+                }]
+                client.create_database('popup_geohash')
+                client.write_points(json_body)
+        except:
+            pass
 
 
 if __name__ == '__main__':
