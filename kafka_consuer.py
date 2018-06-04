@@ -29,39 +29,36 @@ def ip_to_genhash(ip):
 
 def one_consumer():
     for msg in consumer:
-        msg = str(msg).split(',,')
-        ip = msg[0].split(',')[-1]
-        log = '{' + str(msg[1].split(',{')[1].split('},')[0]) + '}' + '}'
-        log = log.replace('\\', '')
-        log = log.replace('"{', '{').replace('}"', '}')
-        print(log)
-        log_json = json.loads(log)
-        try:
+        if '"iid":"send"' in str(msg):
+            msg = str(msg).split(',,')
+            ip = msg[0].split(',')[-1]
+            log = '{' + str(msg[1].split(',{')[1].split('},')[0]) + '}' + '}'
+            log = log.replace('\\', '')
+            log = log.replace('"{', '{').replace('}"', '}')
+            print(log)
+            log_json = json.loads(log)
             iid = log_json['iid']
             kb_lang = log_json['extra']['kb_lang']
             lang = log_json['extra']['lang']
             sticker_id = log_json['extra']['sticker_id']
             tag = log_json['extra']['tag']
-            if iid == 'send':
-                genhash_result = ip_to_genhash(ip)
-                json_body = [{
-                    "measurement": "country",
-                    'tags': {'tag_kb_lang': kb_lang,
-                             'tag_lang': lang,
-                             'tag_sticker_id': sticker_id,
-                             'tag_tag': tag,
-                             'geohash': genhash_result},
-                    "fields": {
-                        'tag': tag,
-                        'sticker_id': sticker_id,
-                        'lang': lang,
-                        'kb_lang': kb_lang
-                    },
-                }]
-                client.create_database('popup_geohash')
-                client.write_points(json_body)
-        except:
-            pass
+            genhash_result = ip_to_genhash(ip)
+            json_body = [{
+                "measurement": "country",
+                'tags': {'tag_kb_lang': kb_lang,
+                         'tag_lang': lang,
+                         'tag_sticker_id': sticker_id,
+                         'tag_tag': tag,
+                         'geohash': genhash_result},
+                "fields": {
+                    'tag': tag,
+                    'sticker_id': sticker_id,
+                    'lang': lang,
+                    'kb_lang': kb_lang
+                },
+            }]
+            client.create_database('popup_geohash')
+            client.write_points(json_body)
 
 
 if __name__ == '__main__':
