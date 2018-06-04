@@ -33,6 +33,7 @@ def one_consumer():
         ip = msg[0].split(',')[-1]
         log = '{' + str(msg[1].split(',{')[1].split('},')[0]) + '}' + '}'
         log = log.replace('\\', '')
+        log = log.replace('"{', '{').replace('}"', '')
         print(log)
         log_json = json.loads(log)
         iid = log_json['iid']
