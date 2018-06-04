@@ -2,7 +2,7 @@
 # __author__ = 'Gz'
 import json
 import geoip2.database
-import geohash
+import Geohash.geohash as geohash
 from kafka import KafkaConsumer
 from influxdb import InfluxDBClient
 

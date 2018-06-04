@@ -5,3 +5,4 @@ kafka-python
 influxdb
 Geohash
 geoip2
+geohash
