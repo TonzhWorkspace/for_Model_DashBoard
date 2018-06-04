@@ -40,7 +40,10 @@ def one_consumer():
             iid = log_json['iid']
             kb_lang = log_json['extra']['kb_lang']
             lang = log_json['extra']['lang']
-            sticker_id = log_json['extra']['sticker_id']
+            try:
+                sticker_id = log_json['extra']['sticker_id']
+            except:
+                sticker_id = log_json['extra']['item_id']
             tag = log_json['extra']['tag']
             genhash_result = ip_to_genhash(ip)
             json_body = [{
