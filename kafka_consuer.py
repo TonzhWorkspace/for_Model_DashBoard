@@ -37,9 +37,9 @@ def one_consumer():
         print(log)
         log_json = json.loads(log)
         iid = log_json['iid']
-        kb_lang = log_json['kb_lang']
-        lang = log_json['long']
-        sticker_id = log_json['sticker_id']
+        kb_lang = log_json['extra']['kb_lang']
+        lang = log_json['extra']['long']
+        sticker_id = log_json['extra']['sticker_id']
         tag = log_json['tag']
         if iid == 'send':
             genhash_result = ip_to_genhash(ip)
