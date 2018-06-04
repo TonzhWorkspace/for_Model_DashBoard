@@ -32,6 +32,8 @@ def one_consumer():
         msg = str(msg).split(',,')
         ip = msg[0].split(',')[-1]
         log = '{' + str(msg[1].split(',{')[1].split('},')[0]) + '}' + '}'
+        log = log.replace('\\')
+        print(log)
         log_json = json.loads(log)
         iid = log_json['iid']
         kb_lang = log_json['kb_lang']
