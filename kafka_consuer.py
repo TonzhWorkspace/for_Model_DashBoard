@@ -28,6 +28,7 @@ def ip_to_genhash(ip):
 
 def one_consumer():
     for msg in consumer:
+        msg = msg.value
         if ('"iid":"send"' in msg.decode('utf8')) and ('"l":"keyboard_sticker2_suggestion_pop"' in msg.decode('utf8')):
             msg = msg.decode('utf8').split(',,')
             ip = msg[0].split(',')[-1]
