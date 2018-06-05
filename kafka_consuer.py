@@ -37,7 +37,10 @@ def one_consumer():
             # log = log.replace('"{', '{').replace('}"', '}')
             # print(log)
             try:
-                log = '{' + (msg[1] + msg[2]).split(',{')[1]
+                log = ''
+                for msg_i in msg[1]:
+                    log += msg_i
+                log = '{' + log.split(',{')[1]
             except:
                 log = '{' + msg[1].split(',{')[1]
             print(msg)
