@@ -36,7 +36,10 @@ def one_consumer():
             # log = log.replace('\\', '')
             # log = log.replace('"{', '{').replace('}"', '}')
             # print(log)
-            log = '{' + msg[1].split(',{')[1]
+            try:
+                log = '{' + (msg[1] + msg[2]).split(',{')[1]
+            except:
+                log = '{' + msg[1].split(',{')[1]
             print(msg)
             print(log)
             log_json = json.loads(log)
