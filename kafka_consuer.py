@@ -38,7 +38,7 @@ def one_consumer():
             # print(log)
             try:
                 log = ''
-                for msg_i in msg[1]:
+                for msg_i in msg[1:]:
                     log += msg_i
                 log = '{' + log.split(',{')[1]
             except:
