@@ -28,28 +28,30 @@ def ip_to_genhash(ip):
 
 def one_consumer():
     for msg in consumer:
-        if ('"iid":"send"' in str(msg)) and ('"l":"keyboard_sticker2_suggestion_pop"' in str(msg)):
-            msg = str(msg).split(',,')
+        if ('"iid":"send"' in msg.decode('utf8')) and ('"l":"keyboard_sticker2_suggestion_pop"' in msg.decode('utf8')):
+            msg = msg.decode('utf8').split(',,')
             ip = msg[0].split(',')[-1]
-            log = '{' + str(msg[1].split(',{')[1].split('},')[0]) + '}' + '}'
-            log = log.replace('\\', '')
-            log = log.replace('"{', '{').replace('}"', '}')
-            print(log)
+            # log = '{' + str(msg[1].split(',{')[1].split('},')[0]) + '}' + '}'
+            # log = log.replace('\\', '')
+            # log = log.replace('"{', '{').replace('}"', '}')
+            # print(log)
+            log = '{' + msg[0].split(',{')[1]
             log_json = json.loads(log)
-            # iid = log_json['iid']
-            kb_lang = log_json['extra']['kb_lang']
-            lang = log_json['extra']['lang']
+            iid = log_json['iid']
+            exitra = json.loads(log_json['extra'])
+            kb_lang = exitra['kb_lang']
+            lang = exitra['lang']
             try:
-                sticker_id = log_json['extra']['sticker_id']
+                sticker_id = exitra['sticker_id']
             except:
-                sticker_id = log_json['extra']['item_id']
+                sticker_id = exitra['item_id']
             try:
-                tag = log_json['extra']['tag']
+                tag = exitra['tag']
             except:
                 try:
-                    tag = log_json['extra']['tags']
+                    tag = exitra['tags']
                 except:
-                    tag = log_json['extra']['key_word']
+                    tag = exitra['key_word']
             genhash_result = ip_to_genhash(ip)
             json_body = [{
                 "measurement": "country",
