@@ -36,7 +36,7 @@ def one_consumer():
             log = log.replace('"{', '{').replace('}"', '}')
             print(log)
             log_json = json.loads(log)
-            iid = log_json['iid']
+            # iid = log_json['iid']
             kb_lang = log_json['extra']['kb_lang']
             lang = log_json['extra']['lang']
             try:
