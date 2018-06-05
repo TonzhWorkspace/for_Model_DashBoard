@@ -14,7 +14,9 @@ client = InfluxDBClient(host='0.0.0.0', port=8086, username='root', password='ro
 
 
 def ip_to_genhash(ip):
-    with geoip2.database.Reader(PATH + '/GeoIP2-City.mmdb') as reader:
+    # with geoip2.database.Reader(PATH + '/GeoIP2-City.mmdb') as reader:
+    with geoip2.database.Reader(
+            '/home/guanzhao/for_Model_DashBoard/for_Model_DashBoard/GeoLite2-City_20180501/GeoLite2-City.mmdb') as reader:
         print(ip)
         response = reader.city(ip)
         latitude = response.location.latitude
@@ -26,7 +28,7 @@ def ip_to_genhash(ip):
 
 def one_consumer():
     for msg in consumer:
-        if '"iid":"send"' in str(msg):
+        if ('"iid":"send"' in str(msg)) and ('"l":"keyboard_sticker2_suggestion_pop"' in str(msg)):
             msg = str(msg).split(',,')
             ip = msg[0].split(',')[-1]
             log = '{' + str(msg[1].split(',{')[1].split('},')[0]) + '}' + '}'
