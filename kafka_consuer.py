@@ -39,7 +39,7 @@ def one_consumer():
             log = '{' + msg[1].split(',{')[1]
             log_json = json.loads(log)
             iid = log_json['iid']
-            exitra = json.loads(log_json['extra'])
+            exitra = log_json['extra']
             kb_lang = exitra['kb_lang']
             lang = exitra['lang']
             try:
