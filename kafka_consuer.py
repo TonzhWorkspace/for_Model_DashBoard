@@ -37,7 +37,7 @@ def one_consumer():
             # log = log.replace('"{', '{').replace('}"', '}')
             # print(log)
             log = '{' + msg[1].split(',{')[1]
-            print(msg.decode('utf8'))
+            print(msg)
             print(log)
             log_json = json.loads(log)
             iid = log_json['iid']
